@@ -14,12 +14,12 @@ const io = socketIo(server, {
   }
 });
 
-// Middleware
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static('../frontend'));
 
-// MySQL Database Connection
+
 const db = mysql.createConnection({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
@@ -27,7 +27,7 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME || 'chat_app'
 });
 
-// Connect to database
+
 db.connect((err) => {
   if (err) {
     console.error('Database connection failed:', err);
@@ -36,31 +36,31 @@ db.connect((err) => {
   console.log('Connected to MySQL database');
 });
 
-// Store active users
+
 let activeUsers = new Map();
 
-// Socket.IO connection handling
+
 io.on('connection', (socket) => {
   console.log('New client connected:', socket.id);
 
-  // Handle user joining
+
   socket.on('join', (userData) => {
     activeUsers.set(socket.id, {
       username: userData.username,
       avatar: userData.avatar || 'https://via.placeholder.com/40'
     });
     
-    // Broadcast user joined to all clients
+ 
     socket.broadcast.emit('userJoined', {
       username: userData.username,
       message: `${userData.username} joined the chat`
     });
     
-    // Send active users list to the new user
+   
     socket.emit('activeUsers', Array.from(activeUsers.values()));
   });
 
-  // Handle sending messages
+
   socket.on('sendMessage', (messageData) => {
     const user = activeUsers.get(socket.id);
     if (!user) return;
@@ -73,7 +73,7 @@ io.on('connection', (socket) => {
       avatar: user.avatar
     };
 
-    // Save message to database
+
     const query = 'INSERT INTO messages (sender, message, timestamp, avatar) VALUES (?, ?, ?, ?)';
     db.query(query, [message.sender, message.message, message.timestamp, message.avatar], (err, result) => {
       if (err) {
@@ -83,12 +83,12 @@ io.on('connection', (socket) => {
       
       message.id = result.insertId;
       
-      // Broadcast message to all connected clients
+     
       io.emit('newMessage', message);
     });
   });
 
-  // Handle user disconnect
+  
   socket.on('disconnect', () => {
     const user = activeUsers.get(socket.id);
     if (user) {
@@ -102,9 +102,9 @@ io.on('connection', (socket) => {
   });
 });
 
-// REST API Routes
 
-// Get chat history
+
+
 app.get('/api/messages', (req, res) => {
   const query = 'SELECT * FROM messages ORDER BY timestamp ASC LIMIT 100';
   db.query(query, (err, results) => {
@@ -117,7 +117,7 @@ app.get('/api/messages', (req, res) => {
   });
 });
 
-// Health check endpoint
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date() });
 });

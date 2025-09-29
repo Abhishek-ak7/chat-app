@@ -14,10 +14,10 @@ class ChatApp {
     }
 
     init() {
-        // Show username modal first
+    
         this.showUsernameModal();
         
-        // Event listeners
+   
         this.joinChatBtn.addEventListener('click', () => this.joinChat());
         this.usernameInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.joinChat();
@@ -27,8 +27,7 @@ class ChatApp {
         this.messageInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.sendMessage();
         });
-        
-        // Auto-resize input and enable/disable send button
+       
         this.messageInput.addEventListener('input', () => {
             this.sendBtn.disabled = !this.messageInput.value.trim();
         });
@@ -81,7 +80,7 @@ class ChatApp {
             this.socket.on('connect', () => {
                 console.log('Connected to server');
                 
-                // Join the chat
+        
                 this.socket.emit('join', {
                     username: this.username,
                     avatar: this.generateAvatar()
@@ -120,22 +119,22 @@ class ChatApp {
             const response = await fetch('http://localhost:3000/api/messages');
             const messages = await response.json();
             
-            // Clear existing messages except date separator
+    
             const dateSeperator = this.messagesContainer.querySelector('.date-separator');
             this.messagesContainer.innerHTML = '';
             if (dateSeperator) {
                 this.messagesContainer.appendChild(dateSeperator);
             }
             
-            // Display historical messages
+          
             messages.forEach(message => {
                 this.displayMessage({
                     ...message,
                     timestamp: new Date(message.timestamp)
-                }, false); // false = don't scroll to bottom for historical messages
+                }, false); 
             });
             
-            // Scroll to bottom after loading all messages
+
             this.scrollToBottom();
             
         } catch (error) {
@@ -214,7 +213,7 @@ class ChatApp {
     }
 
     generateAvatar(username = this.username) {
-        // Generate a consistent color based on username
+    
         const colors = [
             '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57',
             '#FF9FF3', '#54A0FF', '#5F27CD', '#00D2D3', '#FF9F43'
@@ -256,7 +255,7 @@ class ChatApp {
     }
 }
 
-// Initialize the chat app when DOM is loaded
+
 document.addEventListener('DOMContentLoaded', () => {
     new ChatApp();
 });

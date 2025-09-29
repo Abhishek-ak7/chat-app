@@ -21,7 +21,6 @@ body {
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
-/* Chat Header */
 .chat-header {
     background: #fff;
     padding: 15px 20px;
@@ -79,7 +78,6 @@ body {
     padding: 5px;
 }
 
-/* Messages Container */
 .messages-container {
     flex: 1;
     overflow-y: auto;
@@ -211,7 +209,7 @@ body {
     font-style: italic;
 }
 
-/* Message Input */
+
 .message-input-container {
     padding: 15px 20px;
     background: white;
@@ -280,7 +278,7 @@ body {
     cursor: not-allowed;
 }
 
-/* Modal */
+
 .modal {
     position: fixed;
     top: 0;
@@ -342,7 +340,7 @@ body {
     cursor: not-allowed;
 }
 
-/* Loading */
+
 .loading {
     position: fixed;
     top: 0;
@@ -372,7 +370,7 @@ body {
     font-size: 16px;
 }
 
-/* Animations */
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -389,7 +387,7 @@ body {
     }
 }
 
-/* Responsive */
+
 @media (max-width: 480px) {
     .chat-container {
         max-width: 100%;
@@ -401,7 +399,7 @@ body {
     }
 }
 
-/* Scrollbar */
+
 .messages-container::-webkit-scrollbar {
     width: 6px;
 }
