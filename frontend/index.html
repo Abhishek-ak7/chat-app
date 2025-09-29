@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Friday Group Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Chat Header -->
+        <div class="chat-header">
+            <div class="header-left">
+                <button class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="group-avatar">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="group-info">
+                    <h3>Fun Friday Group</h3>
+                    <span class="online-count">0 members online</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="menu-btn">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Messages Container -->
+        <div class="messages-container" id="messagesContainer">
+            <div class="date-separator">
+                <span>8/20/2020</span>
+            </div>
+            <!-- Messages will be loaded here -->
+        </div>
+
+        <!-- Message Input -->
+        <div class="message-input-container">
+            <div class="input-wrapper">
+                <button class="attachment-btn">
+                    <i class="fas fa-paperclip"></i>
+                </button>
+                <button class="camera-btn">
+                    <i class="fas fa-camera"></i>
+                </button>
+                <textarea id="messageInput" placeholder="Type a message..." rows="1"></textarea>
+                <button class="send-btn" id="sendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Username Modal -->
+    <div class="modal" id="usernameModal">
+        <div class="modal-content">
+            <h3>Enter Your Name</h3>
+            <input type="text" id="usernameInput" placeholder="Your name..." maxlength="20">
+            <button id="joinChatBtn">Join Chat</button>
+        </div>
+    </div>
+
+    <!-- Loading indicator -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <span>Connecting...</span>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
